@@ -291,7 +291,7 @@ RCVAR_SAMPLE
 #
 RCVAR_SAMPLE
         @status = mock(:stdout => @rcvar_stdout, :exitstatus => 0)
-        @provider.stub!(:shell_out!).with("/usr/local/etc/rc.d/service_without_naame rcvar").and_return(@status)
+        @provider.stub!(:shell_out!).with("/usr/local/etc/rc.d/#{@current_resource.service_name} rcvar").and_return(@status)
       end
 
       it "should raise an exception if rcvar does not return foobar_enable" do
