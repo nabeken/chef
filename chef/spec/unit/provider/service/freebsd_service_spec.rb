@@ -276,11 +276,13 @@ RCVAR_SAMPLE
       end
 
       it "should get the service name from rcvar if the rcscript does not have a name variable" do
+        @provider.should_receive(:service_enable_variable_name)
+        @provider.load_current_resource
         @provider.service_enable_variable_name.should eql("#{@current_resource.service_name}_enable")
       end
 
       it "should not raise an exception if the rcscript does not have a name variable" do
-        lambda { @provider.service_enable_variable_name }.should_not raise_error(Chef::Exceptions::Service)
+        lambda { @provider.load_current_resource }.should_not raise_error(Chef::Exceptions::Service)
       end
     end
 
@@ -295,7 +297,7 @@ RCVAR_SAMPLE
       end
 
       it "should raise an exception if rcvar does not return foobar_enable" do
-        lambda { @provider.service_enable_variable_name }.should raise_error(Chef::Exceptions::Service)
+        lambda { @provider.load_current_resource }.should raise_error(Chef::Exceptions::Service)
       end
     end
   end
