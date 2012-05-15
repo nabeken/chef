@@ -118,9 +118,11 @@ class Chef
           # We should get the service from rcvar.
           Chef::Log.debug("name=\"service\" not found at #{@init_command}. falling back to rcvar")
           sn = shell_out!("#{@init_command} rcvar").stdout[/^(\w+_enable)=/, 1]
-          return sn if sn
-
-          raise Chef::Exceptions::Service, "Could not find name=\"service\" line in #{@init_command}"
+          if sn
+            return sn
+          else
+            raise Chef::Exceptions::Service, "Could not find name=\"service\" line in #{@init_command}"
+          end
         end
 
         def set_service_enable(value)
