@@ -100,7 +100,6 @@ class Chef
           end
         end
 
-
         # The variable name used in /etc/rc.conf for enabling this service
         def service_enable_variable_name
           # Look for name="foo" in the shell script @init_command. Use this for determining the variable name in /etc/rc.conf
